@@ -74,3 +74,24 @@ export const updateBook = (req: Request, res: Response) => {
         message: "Book Update successfully"
     })
 }
+
+export const deleteBook = (req: Request, res: Response) => {
+    const id = Number(req.params.id)
+
+    const index = books.findIndex(book => book.id === id)
+
+    if(index === -1){
+        res.status(400).json({
+            success: false,
+            message: "book not found"
+        })
+        return
+    }
+
+    books.splice(index, 1)
+
+    res.status(200).json({
+        success: true,
+        message: "Book deleted successfully"
+    })
+}
