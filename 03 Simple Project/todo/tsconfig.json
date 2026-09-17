@@ -9,7 +9,7 @@
     "allowJs": true,
     "types": ["bun"],
 
-    "rootDir": ".", 
+    "rootDir": ".",
     "outDir": "./dir",
 
     // Bundler mode
@@ -30,6 +30,5 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-    "include": ["src/**/*", "db.ts"]
-
+  "include": ["src/**/*", "Database/db.ts"]
 }
