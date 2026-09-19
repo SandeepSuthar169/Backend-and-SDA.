@@ -1,5 +1,6 @@
 import express, { type Response, type Request } from "express";
 import { notes, type Note } from "../Database/noteDb";
+import { CommentDirectiveType, type tryCast } from "typescript/unstable/ast";
 
 const app = express();
 
@@ -12,19 +13,35 @@ app.get("/notes", (req: Request, res: Response) => {
 });
 
 app.get("/notes/:id", (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const note = notes.find((note) => note.id === id);
+  try {
+    const id = Number(req.params.id);
 
-  if (!note) {
-    res.status(400).json({
-      message: "Note not found!",
+    if (!id) {
+      return res.status(404).json({
+        message: "User Id not Found!",
+      });
+    }
+
+    const note = notes.find((note) => note.id === id);
+
+    if (!note) {
+      res.status(404).json({
+        message: "Note not found!",
+      });
+    }
+
+    res.status(200).json({
+      note,
+      message: "Get Note successfully",
     });
+  } catch (error) {
+      return res.status(500).json({
+        error: {
+          code: "UNEXECTED_ERROR",
+          message: "Request validation failed!",
+        }
+      })
   }
-
-  res.status(200).json({
-    note,
-    message: "Fetch Note successfully",
-  });
 });
 
 app.post("/notes", (req: Request, res: Response) => {
@@ -83,34 +100,32 @@ app.put("/notes/:id", (req: Request, res: Response) => {
   // return note
   return res.status(200).json({
     note: note,
-    message: "Note update successfully!"
-  })
+    message: "Note update successfully!",
+  });
 });
 
 app.delete("/notes/:id", (req: Request, res: Response) => {
-  // Get id from Params 
-  const id = Number(req.params.id)                              
-  
+  // Get id from Params
+  const id = Number(req.params.id);
+
   // find notes index
   const noteIndex = notes.findIndex((note) => note.id === id);
 
   // if notes index === -1 return note not found
-  if(noteIndex === -1){
+  if (noteIndex === -1) {
     return res.status(400).json({
-      message: "Note not found!"
-    })
+      message: "Note not found!",
+    });
   }
 
   // delete note by splice     const deletedTodo = todos.splice(todoIndex, 1)[0];
-  const deleteNote = notes.slice(noteIndex, 1)[0]
-  
+  const deleteNote = notes.slice(noteIndex, 1)[0];
+
   // return success status and delete note
   return res.status(200).json({
-    note:deleteNote,
-    message: "Note delete successfully!"
-  })
-
-
+    note: deleteNote,
+    message: "Note delete successfully!",
+  });
 });
 
 app.listen(PORT, () => {
