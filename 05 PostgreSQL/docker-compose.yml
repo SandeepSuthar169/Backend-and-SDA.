@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:18
+    container_name: my-postgres
+    restart: always
+
+    environment:
+      POSTGRES_USER: san
+      POSTGRES_PASSWORD: san123suthar
+      POSTGRES_DB: sanDB
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:

@@ -35,7 +35,7 @@ export const getTodoById = asyncHandler(async (req: Request, res: Response) => {
 export const createTodo = asyncHandler(async (req: Request, res: Response) => {
   try {
     // get data form body
-    const { title, description, completed } = req.body;
+    const { title, description, completed } = req.body ?? {}
     // validate
     if (!title || !description)
       throw new AppError("Title and description is required", 400);
