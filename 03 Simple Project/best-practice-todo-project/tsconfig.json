@@ -3,7 +3,7 @@
     // Environment setup & latest features
     "lib": ["ESNext"],
     "target": "ESNext",
-    "module": "es2020",
+    "module": "es2022",
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
