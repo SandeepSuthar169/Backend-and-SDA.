@@ -13,7 +13,8 @@ export interface CreateTodoInput {
 }
 
 export interface UpdateTodoInput {
+     id: number
     title: string
     description: string
-    completed?: boolean
+    completed: boolean
 }
