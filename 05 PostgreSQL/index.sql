@@ -7,5 +7,4 @@ VALUES
     ('pen', 'Cello', 50, 10.00),
     ('marker', 'Camlin', 15, 35.00);
 
-
-SELECT * FROM userProduct
+SELECT * FROM todos;

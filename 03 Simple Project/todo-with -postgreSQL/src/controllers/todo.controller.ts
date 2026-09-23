@@ -5,7 +5,7 @@ import { AppError } from "../utils/error.unils";
 
 export const getTodos = asyncHandler(async (_req: Request, res: Response) => {
   try {
-    const result = pool.query("WHERE * FROM todos ORDER BY created_at DESC");
+    const result = pool.query("SELECT * FROM todos ORDER BY created_at DESC");
 
     if (!result) throw new AppError("Todos not found!", 404);
 
@@ -30,7 +30,7 @@ export const getTodoById = asyncHandler(async (req: Request, res: Response) => {
 
     if (Number.isNaN(id)) throw new AppError("todo Id is required", 404);
 
-    const result = await pool.query("SELECT * FROM todos WHERE id = $1", [0]);
+    const result = await pool.query("SELECT * FROM todos WHERE id = $1", [id]);
 
     if (!result || result.rows.length === 0)
       throw new AppError("Todo result is required!", 404);
@@ -62,7 +62,7 @@ export const createTodo = asyncHandler(async (req: Request, res: Response) => {
       `INSERT INTO todos (title, description)
             VALUES ($1, $2)
             RETURNING *`,
-      [title.trim() || description || null],
+      [title.trim(), description.trim()],
     );
 
     if (!result) throw new AppError("Result is required", 404);
@@ -178,7 +178,7 @@ export const deleteTodo = asyncHandler(async (req: Request, res: Response) => {
 
     if (result.rows.length === 0) {
       res.status(404).json({
-        seccess: false,
+        success: false,
         message: "Todo not found!",
       });
     }
