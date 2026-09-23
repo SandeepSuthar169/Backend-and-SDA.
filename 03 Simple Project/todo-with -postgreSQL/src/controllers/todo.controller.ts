@@ -165,36 +165,34 @@ export const updateTodo = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-
-export  const deleteTodo = asyncHandler(async (req: Request, res: Response) => {
+export const deleteTodo = asyncHandler(async (req: Request, res: Response) => {
   try {
-    const id = Number(req.params.id)
+    const id = Number(req.params.id);
 
     if (Number.isNaN(id)) throw new AppError("Invalid Todo", 404);
 
     const result = await pool.query(
-      "DELETE FROM todos WHERE id = $1 RETURNING *", [id]
-    )
+      "DELETE FROM todos WHERE id = $1 RETURNING *",
+      [id],
+    );
 
-    if(result.rows.length === 0) {
+    if (result.rows.length === 0) {
       res.status(404).json({
         seccess: false,
-        message: "Todo not found!"
-      })
+        message: "Todo not found!",
+      });
     }
 
     res.status(200).json({
       success: true,
       message: "Todo deleted successfully",
-      data: result.rows[0]
-    })
-
+      data: result.rows[0],
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
       success: false,
-      message: "Internal server Error"
-    })
-    
+      message: "Internal server Error",
+    });
   }
-})
+});
