@@ -100,3 +100,25 @@ FROM products
 SELECT 
     CONCAT_WS(' ', name, brand, price) AS info
 FROM products
+
+-----------------------------------------------------------
+
+SELECT 
+    id,
+    name,
+    brand,
+    price
+FROM userProduct
+WHERE price BETWEEN 500.0 AND  9000.0;
+
+------------------------------------------------------------
+
+SELECT 
+    id,
+    name,
+    brand,
+    price
+FROM userProduct
+WHERE price NOT BETWEEN 500.0 AND  9000.0;
+
+
