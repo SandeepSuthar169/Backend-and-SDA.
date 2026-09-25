@@ -18,6 +18,7 @@ export const getTodos = asyncHandler(async (_req: Request, res: Response) => {
       success: true,
       data: (await result).rows,
     });
+    
   } catch (error) {
     console.error(error);
 
