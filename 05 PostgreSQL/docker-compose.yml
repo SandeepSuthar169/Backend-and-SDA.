@@ -1,13 +1,13 @@
 services:
   db:
     image: postgres:18
-    container_name: my-postgres
+    container_name: expriment-db
     restart: always
 
     environment:  
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: sandeep-postgresql
+      POSTGRES_PASSWORD: sandeep-pass-postgresql
+      POSTGRES_DB: sandeep-db
 
     ports:
       - "5432:5432"

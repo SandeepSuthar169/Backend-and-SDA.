@@ -122,3 +122,25 @@ FROM userProduct
 WHERE price NOT BETWEEN 500.0 AND  9000.0;
 
 
+------------------------------------------------------------
+
+
+SELECT 
+    name AS product_name,
+    brand AS brand_name,
+    price
+FROM userProduct
+WHERE brand IN ('HP', 'Cello')
+
+
+
+-----------------------------------------------------------
+
+
+UPDATE inv
+SET name = 'Phone 14 Pro-Max'
+WHERE name = 'iPhone 14 Pro'
+RETURNING *;
+
+
+--------------------------------------------------------------
