@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from "express";
 import "dotenv/config";
 import cors from "cors";
+import bookStore from "./routes/bookStore.route"
 
 const app = express();
 
@@ -15,6 +16,15 @@ app.get("/health", (_req: Request, res: Response) => {
     });
 });
 
+
+app.use("/api/book",bookStore )
+
+app.use((req: Request, res: Response) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found"
+    })
+})
 const PORT = process.env.PORT || 5000;
 
 
